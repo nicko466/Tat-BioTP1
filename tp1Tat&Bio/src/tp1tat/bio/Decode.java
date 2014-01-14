@@ -62,10 +62,9 @@ public class Decode {
             int byte1 = getByte(data[i], data[i + 1], data[i + 2], data[i + 3]);
             char c = (char) byte1;
             name = name.concat(String.valueOf(c));
-            System.out.println("carac = " + c);
             i = i + 4;
         }
-        System.out.println("name " + name);
+        System.out.println("file export under name: " + name);
         return name;
     }
 
