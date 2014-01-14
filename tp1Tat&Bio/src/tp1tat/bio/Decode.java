@@ -5,9 +5,7 @@
  */
 package tp1tat.bio;
 
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +20,7 @@ public class Decode {
     private int sizeSecretImage;
     private String nameSecretImage;
     private ShortPixmap sp;
-    private int endHeader = 16 + 16 + 13;
+    private int endHeader = 159-15;
 
     public Decode(String src) {
         try {
@@ -32,8 +30,7 @@ public class Decode {
             System.out.println("width " + sp.width);
 
             this.data = new short[sp.size];
-
-            for (int i = 0; i < sp.width; i++) {
+            for (int i = 0; i < sp.size; i++) {
                 data[i] = (short) sp.data[i];
             }
         } catch (IOException ex) {
@@ -68,7 +65,7 @@ public class Decode {
             System.out.println("carac = " + c);
             i = i + 4;
         }
-        System.out.println("name" + name);
+        System.out.println("name " + name);
         return name;
     }
 
@@ -83,9 +80,9 @@ public class Decode {
     public void extractFlowData() {
         try {
             FileOutputStream fos = new FileOutputStream(nameSecretImage);
+            System.out.println(" size: "+sizeSecretImage);
             for (int i = endHeader; i < sizeSecretImage*4 + endHeader; i+=4) {
                 int val= getByte(data[i],data[i+1],data[i+2],data[i+3]);
-//                byte b = (byte) ((val) & 0xff);
                 fos.write(val);
             }
             fos.close();

@@ -5,9 +5,6 @@
  */
 package tp1tat.bio;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
