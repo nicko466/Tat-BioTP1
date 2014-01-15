@@ -25,9 +25,9 @@ public class Decode {
     public Decode(String src) {
         try {
             sp = new ShortPixmap(src);
-            System.out.println("height " + sp.height);
-            System.out.println("size " + sp.size);
-            System.out.println("width " + sp.width);
+            System.out.println("height img orig" + sp.height);
+            System.out.println("size img orig " + sp.size);
+            System.out.println("width img orig" + sp.width);
 
             this.data = new short[sp.size];
             for (int i = 0; i < sp.size; i++) {
@@ -46,7 +46,7 @@ public class Decode {
         int byte3 = getByte(data[8], data[9], data[10], data[11]);
         int byte4 = getByte(data[12], data[13], data[14], data[15]);
         sizeSecretImage = (byte1 << 24) + (byte2 << 16) + (byte3 << 8) + byte4;
-        System.out.println("size= " + sizeSecretImage);
+        System.out.println("size img= " + sizeSecretImage);
         nameSecretImage = parseName(16, 16 + 13 * 4);
 
     }

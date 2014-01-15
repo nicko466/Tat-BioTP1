@@ -122,7 +122,7 @@ public abstract class Pixmap {
         try {
             PixmapWriter writer = new PixmapWriter(fileName);
             writer.put(magic);
-            writer.put("#\n");
+//            writer.put("#\n");
             writer.put(width + " " + height + "\n255\n");
             writer.write(buffer);
             writer.close();

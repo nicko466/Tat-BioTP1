@@ -16,7 +16,7 @@ public class Tp1TatBio {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String src = "Tatou.pgm";
-        Decode decode = new Decode((src));
+        Encode encode = new Encode("Lena.pgm","../tatouminaOrig.jpg","Sortie.pgm");
+        Decode decode = new Decode("Sortie.pgm");
     }
 }
