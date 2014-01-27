@@ -21,19 +21,22 @@ public class Encode {
     private final short StartFlow = 0;
     private ShortPixmap sp;
     private File fileToHide;
+    private String nameFileToMask;
 
     public Encode(String pathBaseImage, String pathData2mask, String pathOut) {
         try {
             this.pathBaseImage = pathBaseImage;
-            this.pathData2mask = "tatoumina1.jpg";
+            this.pathData2mask = pathData2mask;
+            this.nameFileToMask = "tatoumina1.jpg";
             this.pathOut = pathOut;
             this.sp = new ShortPixmap(pathBaseImage);
-
+            //permet de créer le fichier pathOut s'il n'existe pas auparavant
+            new File(pathOut);
             fileToHide = new File(pathData2mask);
             long size2mask = fileToHide.length();
             System.out.println(" taille ficher a masqué " + size2mask);
             sizeHeader = (short) (16 + pathOut.length() * Character.SIZE);
-            encodeHeader(size2mask, this.pathData2mask);
+            encodeHeader(size2mask, this.nameFileToMask);
             encodeData();
         } catch (IOException ex) {
             Logger.getLogger(Encode.class.getName()).log(Level.SEVERE, "fail lecture base image", ex);
@@ -49,7 +52,6 @@ public class Encode {
         encodeByte(8, size >> 8);
         encodeByte(4, size >> 16);
         encodeByte(0, size >> 24);
-
         for (int i = 0; i < name.length(); i++) {
             encodeByte(16 + i * 4, (short) name.charAt(i));
         }
@@ -58,12 +60,13 @@ public class Encode {
 
     public void encodeData() {
         FileInputStream fileToHideInputStream = null;
-
         try {
             fileToHideInputStream = new FileInputStream(fileToHide);
             int content;
+            int i =144;
             while ((content = fileToHideInputStream.read()) != -1) {
-                encodeByte(sizeHeader, (short)content);
+                encodeByte(i, (short)content);
+                i = i +4;
             }
             //export data
             sp.write(pathOut);
